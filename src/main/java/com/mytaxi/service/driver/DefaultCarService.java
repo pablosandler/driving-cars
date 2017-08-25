@@ -70,4 +70,23 @@ public class DefaultCarService implements CarService {
         return result;
     }
 
+    @Override
+    public void delete(long carId) {
+        carRepository.delete(carId);
+    }
+
+    @Override
+    public CarDo update(long id, int rating) throws EntityNotFoundException {
+        Optional<CarDo> car = Optional.ofNullable(carRepository.findOne(id));
+
+        CarDo c = car.orElseThrow(() -> {
+            LOG.warn("Could not find car with id: " + id);
+            return new EntityNotFoundException("Could not find car with id: " + id);
+        });
+
+        c.setRating(rating);
+
+        return carRepository.save(c);
+    }
+
 }

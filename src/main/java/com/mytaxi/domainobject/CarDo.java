@@ -104,4 +104,8 @@ public class CarDo {
     public int hashCode() {
         return Objects.hash(getId(), getDateCreated(), getLicensePlate(), getSeatCount(), isConvertible(), getRating(), getEngineType(), getManufacturer());
     }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 }

@@ -1,8 +1,4 @@
-package com.mytaxi.service.driver;/*
- * Copyright 2014-2017 SignalPath, LLC - All Rights Reserved
- * Unauthorized dissemination or copying of these materials, in whole or in part and via any medium, is strictly prohibited.
- * Proprietary and confidential.
- */
+package com.mytaxi.service.driver;
 
 import com.mytaxi.domainobject.CarDo;
 import com.mytaxi.domainvalue.EngineType;
@@ -18,4 +14,8 @@ public interface CarService {
     CarDo find(long id) throws EntityNotFoundException;
 
     List<CarDo> find();
+
+    void delete(long carId);
+
+    CarDo update(long carId, int rating) throws EntityNotFoundException ;
 }

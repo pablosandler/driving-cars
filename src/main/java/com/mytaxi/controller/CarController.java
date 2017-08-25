@@ -34,7 +34,7 @@ public class CarController {
     }
 
     @GetMapping("/{carId}")
-    public CarDTO getCar(@Valid @PathVariable long carId) throws EntityNotFoundException {
+    public CarDTO getCar(@PathVariable long carId) throws EntityNotFoundException {
         return CarMapper.makeCarDTO(carService.find(carId));
     }
 
@@ -47,17 +47,14 @@ public class CarController {
     }
 
 
-    /*@DeleteMapping("/{driverId}")
-    public void deleteCar(@Valid @PathVariable long driverId) throws EntityNotFoundException {
-        driverService.delete(driverId);
-    }*/
+    @DeleteMapping("/{carId}")
+    public void deleteCar(@PathVariable long carId) throws EntityNotFoundException {
+        carService.delete(carId);
+    }
 
 
-    /*@PutMapping("/{driverId}")
-    public void updateLocation(
-            @Valid @PathVariable long driverId, @RequestParam double longitude, @RequestParam double latitude)
-            throws ConstraintsViolationException, EntityNotFoundException
-    {
-        driverService.updateLocation(driverId, longitude, latitude);
-    }*/
+    @PutMapping("/{carId}")
+    public CarDTO update(@PathVariable long carId, @RequestParam int rating) throws EntityNotFoundException {
+        return CarMapper.makeCarDTO(carService.update(carId, rating));
+    }
 }

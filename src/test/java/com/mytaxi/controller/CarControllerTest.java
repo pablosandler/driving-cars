@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -24,12 +23,11 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -166,6 +164,28 @@ public class CarControllerTest {
 
         assertArrayEquals(expectedDtos.toArray(), carDtos.toArray());
     }
+
+    @Test
+    public void whenDeletingACarReturnOKIfSuccessful() throws Exception {
+
+        this.mockMvc.perform(delete("/v1/cars/1").accept(contentType).contentType(contentType))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void whenUpdatingCarThrowAnErrorIfCarIsNotFound() throws Exception {
+        when(carService.update(1L, 1)).thenThrow(new EntityNotFoundException("error"));
+
+        this.mockMvc.perform(put("/v1/cars/1?rating=1").accept(contentType).contentType(contentType))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void whenUpdatingCarThrowAnErrorIfRatingIsOutOfRange() throws Exception {
+        this.mockMvc.perform(put("/v1/cars/1?rating=10").accept(contentType).contentType(contentType))
+                .andExpect(status().isBadRequest());
+    }
+
 
     public static String asJsonString(final CarDTO car) {
         try {

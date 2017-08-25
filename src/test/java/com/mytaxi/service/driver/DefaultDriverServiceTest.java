@@ -9,6 +9,7 @@ import com.mytaxi.domainvalue.OnlineStatus;
 import com.mytaxi.exception.CarAlreadyInUseException;
 import com.mytaxi.exception.EntityNotFoundException;
 import com.mytaxi.exception.IncorrectStatusException;
+import com.mytaxi.service.car.CarService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

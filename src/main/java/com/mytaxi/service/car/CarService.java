@@ -1,4 +1,4 @@
-package com.mytaxi.service.driver;
+package com.mytaxi.service.car;
 
 import com.mytaxi.domainobject.CarDo;
 import com.mytaxi.domainvalue.EngineType;

@@ -5,7 +5,7 @@ import com.mytaxi.datatransferobject.CarDTO;
 import com.mytaxi.domainobject.CarDo;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
-import com.mytaxi.service.driver.CarService;
+import com.mytaxi.service.car.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

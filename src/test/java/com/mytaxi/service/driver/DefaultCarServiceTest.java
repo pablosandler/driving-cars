@@ -7,13 +7,13 @@ import com.mytaxi.domainobject.ManufacturerDo;
 import com.mytaxi.domainvalue.EngineType;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
+import com.mytaxi.service.car.CarService;
+import com.mytaxi.service.car.DefaultCarService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;

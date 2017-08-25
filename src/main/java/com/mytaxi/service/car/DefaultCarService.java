@@ -1,4 +1,4 @@
-package com.mytaxi.service.driver;
+package com.mytaxi.service.car;
 
 import com.mytaxi.dataaccessobject.CarRepository;
 import com.mytaxi.dataaccessobject.ManufacturerRepository;
@@ -7,6 +7,7 @@ import com.mytaxi.domainobject.ManufacturerDo;
 import com.mytaxi.domainvalue.EngineType;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
+import com.mytaxi.service.driver.DefaultDriverService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

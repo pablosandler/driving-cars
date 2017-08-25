@@ -6,7 +6,7 @@ import com.mytaxi.domainobject.CarDo;
 import com.mytaxi.domainobject.ManufacturerDo;
 import com.mytaxi.domainvalue.EngineType;
 import com.mytaxi.exception.EntityNotFoundException;
-import com.mytaxi.service.driver.CarService;
+import com.mytaxi.service.car.CarService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

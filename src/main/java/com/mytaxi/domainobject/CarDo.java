@@ -53,6 +53,8 @@ public class CarDo {
         dateCreated = ZonedDateTime.now();
     }
 
+    private CarDo(){}
+
     public Long getId() {
         return id;
     }

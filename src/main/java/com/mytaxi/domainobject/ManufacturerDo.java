@@ -32,6 +32,8 @@ public class ManufacturerDo {
         dateCreated = ZonedDateTime.now();
     }
 
+    private ManufacturerDo(){}
+
     public Long getId() {
         return id;
     }

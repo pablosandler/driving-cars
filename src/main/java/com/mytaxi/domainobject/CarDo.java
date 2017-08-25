@@ -42,6 +42,8 @@ public class CarDo {
     @JoinColumn(name="manufacturer_ID", nullable=false, updatable=false)
     private ManufacturerDo manufacturer;
 
+    private boolean selected;
+
     public CarDo(String licensePlate, ManufacturerDo manufacturer, EngineType engineType, int rating, boolean convertible, int seatCount) {
         this.id=null;
         this.manufacturer = manufacturer;
@@ -50,7 +52,8 @@ public class CarDo {
         this.convertible = convertible;
         this.seatCount = seatCount;
         this.licensePlate = licensePlate;
-        dateCreated = ZonedDateTime.now();
+        this.dateCreated = ZonedDateTime.now();
+        this.selected = false;
     }
 
     private CarDo(){}
@@ -87,6 +90,18 @@ public class CarDo {
         return manufacturer;
     }
 
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,6 +110,7 @@ public class CarDo {
         return getSeatCount() == carDo.getSeatCount() &&
                 isConvertible() == carDo.isConvertible() &&
                 getRating() == carDo.getRating() &&
+                selected == carDo.selected &&
                 Objects.equals(getId(), carDo.getId()) &&
                 Objects.equals(getDateCreated(), carDo.getDateCreated()) &&
                 Objects.equals(getLicensePlate(), carDo.getLicensePlate()) &&
@@ -104,10 +120,6 @@ public class CarDo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getDateCreated(), getLicensePlate(), getSeatCount(), isConvertible(), getRating(), getEngineType(), getManufacturer());
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
+        return Objects.hash(getId(), getDateCreated(), getLicensePlate(), getSeatCount(), isConvertible(), getRating(), getEngineType(), getManufacturer(), selected);
     }
 }

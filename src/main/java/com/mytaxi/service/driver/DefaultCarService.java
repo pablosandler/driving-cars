@@ -64,6 +64,11 @@ public class DefaultCarService implements CarService {
     }
 
     @Override
+    public CarDo save(CarDo car) {
+        return carRepository.save(car);
+    }
+
+    @Override
     public List<CarDo> find() {
         List<CarDo> result = new ArrayList<>();
         carRepository.findAll().forEach(result::add);

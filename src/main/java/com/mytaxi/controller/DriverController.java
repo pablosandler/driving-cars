@@ -4,8 +4,10 @@ import com.mytaxi.controller.mapper.DriverMapper;
 import com.mytaxi.datatransferobject.DriverDTO;
 import com.mytaxi.domainobject.DriverDO;
 import com.mytaxi.domainvalue.OnlineStatus;
+import com.mytaxi.exception.CarAlreadyInUseException;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
+import com.mytaxi.exception.IncorrectStatusException;
 import com.mytaxi.service.driver.DriverService;
 import java.util.List;
 import javax.validation.Valid;
@@ -82,7 +84,8 @@ public class DriverController
 
     @PostMapping("/{driverId}/car")
     @ResponseStatus(HttpStatus.CREATED)
-    public void selectCar(@Valid @PathVariable long driverId, @RequestBody long carId) throws EntityNotFoundException {
+    public void selectCar(@Valid @PathVariable long driverId, @RequestBody long carId)
+            throws EntityNotFoundException, IncorrectStatusException, CarAlreadyInUseException {
         driverService.selectCar(driverId, carId);
     }
 

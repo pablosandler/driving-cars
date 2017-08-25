@@ -13,6 +13,8 @@ public interface CarService {
 
     CarDo find(long id) throws EntityNotFoundException;
 
+    CarDo save(CarDo car);
+
     List<CarDo> find();
 
     void delete(long carId);

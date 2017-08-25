@@ -49,9 +49,10 @@ public class CarControllerTest {
     }
 
     @Test
-    public void whenCreatingCarReturnNewObjectWithId() throws Exception {
-        CarDTO carDto = new CarDTO(null, "111111", 1, false, 1, EngineType.DIESEL, 1L);
-        CarDo car = new CarDo("1L", new ManufacturerDo("name"), EngineType.DIESEL, 1, false, 1);
+    public void whenCreatingCarReturnNewObject() throws Exception {
+        CarDTO carDto = new CarDTO(2L, "111111", 1, false, 1, EngineType.DIESEL, 1L);
+        ManufacturerDo manufacturer = new ManufacturerDo("name");
+        CarDo car = new CarDo("111111", manufacturer, EngineType.DIESEL, 1, false, 1);
         when(carService.create("111111", 1L, 1, 1, EngineType.DIESEL, false)).thenReturn(car);
 
         MvcResult result = this.mockMvc.perform(post("/v1/cars").accept(contentType).contentType(contentType).content(asJsonString(carDto)))
@@ -59,7 +60,10 @@ public class CarControllerTest {
 
         String content = result.getResponse().getContentAsString();
         CarDTO carResponse = asObject(content);
-        assertEquals(new Long(1L), carResponse.getId());
+        assertEquals("111111", carResponse.getLicensePlate());
+        assertEquals(EngineType.DIESEL, carResponse.getEngineType());
+        assertEquals(1, carResponse.getRating());
+        assertEquals(1, carResponse.getSeatCount());
     }
 
 

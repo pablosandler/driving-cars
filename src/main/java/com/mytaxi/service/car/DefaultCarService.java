@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 public class DefaultCarService implements CarService {
 
-    private static org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultDriverService.class);
+    private static org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultCarService.class);
 
     private CarRepository carRepository;
     private ManufacturerRepository manufacturerRepository;

@@ -1,16 +1,18 @@
 package com.mytaxi.service.driver;
 
 import com.mytaxi.dataaccessobject.DriverRepository;
+import com.mytaxi.domainobject.CarDo;
 import com.mytaxi.domainobject.DriverDO;
 import com.mytaxi.domainvalue.GeoCoordinate;
 import com.mytaxi.domainvalue.OnlineStatus;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
-import java.util.List;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Service to encapsulate the link between DAO and controller and to have business logic for some driver specific things.
@@ -23,11 +25,13 @@ public class DefaultDriverService implements DriverService
     private static org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultDriverService.class);
 
     private final DriverRepository driverRepository;
+    private final CarService carService;
 
 
-    public DefaultDriverService(final DriverRepository driverRepository)
+    public DefaultDriverService(final DriverRepository driverRepository, final CarService carService)
     {
         this.driverRepository = driverRepository;
+        this.carService = carService;
     }
 
 
@@ -110,6 +114,25 @@ public class DefaultDriverService implements DriverService
     public List<DriverDO> find(OnlineStatus onlineStatus)
     {
         return driverRepository.findByOnlineStatus(onlineStatus);
+    }
+
+    @Override
+    public DriverDO selectCar(long driverId, long carId) throws EntityNotFoundException {
+        DriverDO driver = findDriverChecked(driverId);
+        CarDo car = carService.find(carId);
+
+        driver.setCar(car);
+        driverRepository.save(driver);
+
+        return driver;
+    }
+
+    @Override
+    public DriverDO deselectCar(long driverId) throws EntityNotFoundException {
+        DriverDO driver = findDriverChecked(driverId);
+        driver.setCar(null);
+        driverRepository.save(driver);
+        return driver;
     }
 
 

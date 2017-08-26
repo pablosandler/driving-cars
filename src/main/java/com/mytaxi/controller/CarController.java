@@ -2,6 +2,7 @@ package com.mytaxi.controller;
 
 import com.mytaxi.controller.mapper.CarMapper;
 import com.mytaxi.datatransferobject.CarDTO;
+import com.mytaxi.datatransferobject.CarUpdateDTO;
 import com.mytaxi.domainobject.CarDo;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
@@ -54,7 +55,7 @@ public class CarController {
 
 
     @PutMapping("/{carId}")
-    public CarDTO update(@PathVariable long carId, @RequestParam int rating) throws EntityNotFoundException {
-        return CarMapper.makeCarDTO(carService.update(carId, rating));
+    public CarDTO update(@PathVariable long carId, @Valid @RequestBody CarUpdateDTO carUpdateDTO) throws EntityNotFoundException {
+        return CarMapper.makeCarDTO(carService.update(carId, carUpdateDTO.getRating()));
     }
 }

@@ -2,6 +2,7 @@ package com.mytaxi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mytaxi.datatransferobject.CarDTO;
+import com.mytaxi.datatransferobject.CarUpdateDTO;
 import com.mytaxi.domainobject.CarDo;
 import com.mytaxi.domainobject.ManufacturerDo;
 import com.mytaxi.domainvalue.EngineType;
@@ -171,7 +172,6 @@ public class CarControllerTest {
 
     @Test
     public void whenDeletingACarReturnOKIfSuccessful() throws Exception {
-
         this.mockMvc.perform(delete("/v1/cars/1").accept(contentType).contentType(contentType))
                 .andExpect(status().isOk());
     }
@@ -186,10 +186,35 @@ public class CarControllerTest {
 
     @Test
     public void whenUpdatingCarThrowAnErrorIfRatingIsOutOfRange() throws Exception {
-        this.mockMvc.perform(put("/v1/cars/1?rating=10").accept(contentType).contentType(contentType))
+        CarUpdateDTO carUpdateDto = new CarUpdateDTO(10);
+
+        this.mockMvc.perform(put("/v1/cars/1").accept(contentType).contentType(contentType).content(asJsonString(carUpdateDto)))
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void whenUpdatingCarReturnUpdatedCarIfSuccessful() throws Exception {
+        CarDo car = new CarDo("111111", new ManufacturerDo("BMW"), EngineType.DIESEL, 3, false, 1);
+        when(carService.update(1, 3)).thenReturn(car);
+
+        CarUpdateDTO carUpdateDto = new CarUpdateDTO(3);
+
+        MvcResult result = this.mockMvc.perform(put("/v1/cars/1").accept(contentType).contentType(contentType).content(asJsonString(carUpdateDto)))
+                .andExpect(status().isOk()).andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        CarDTO carDto = asObject(content);
+
+        assertEquals(3, carDto.getRating());
+    }
+
+    public static String asJsonString(final CarUpdateDTO car) {
+        try {
+            return new ObjectMapper().writeValueAsString(car);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static String asJsonString(final CarDTO car) {
         try {

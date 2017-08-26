@@ -1,8 +1,6 @@
 package com.mytaxi.datatransferobject;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mytaxi.domainvalue.EngineType;
 
 import javax.validation.constraints.Max;
@@ -14,7 +12,6 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CarDTO {
 
-    //@JsonIgnore //todo change
     private Long id;
 
     @NotNull(message = "License plate can not be null!")
@@ -48,7 +45,6 @@ public class CarDTO {
         this.manufacturer = manufacturer;
     }
 
-    //@JsonProperty //todo change
     public Long getId() {
         return id;
     }

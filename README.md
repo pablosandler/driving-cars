@@ -40,5 +40,32 @@ First come first serve: A car can be selected by exactly one ONLINE Driver. If a
 ## Task 3
 Make use of the filter pattern to implement an endpoint in the DriverController to get a list of drivers with specific characteristics. Reuse the characteristics you implemented in task 1.
 
+######EXAMPLE OF A CRITERIA FILTER PAYLOAD:
+{
+  "criteriaType":"AND",
+  "criteria": {
+      "criteriaType":"AND",
+      "criteria": {
+        "attribute":"CAR_ENGINE",
+        "value": "ELECTRIC"
+       }
+   },
+  "otherCriteria": {
+      "criteriaType":"OR",
+      "criteria": {
+        "attribute":"CAR_MANUFACTURER",
+        "value": "2"
+       },
+      "otherCriteria": {
+        "attribute":"ONLINE_STATUS",
+        "value": "OFFLINE"
+       }
+   }
+}
+
 ## Task 4
 Security: secure the API. It's up to you how you are going to implement the security.
+
+I chose JWT. Call http://localhost:8080/v1/auth to create a token.
+Then send it like this in the header:
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkcml2ZXIwMSIsImV4cCI6MTUwNDM4MjkxNiwiaWF0IjoxNTAzNzc4MTE2fQ.9I4UYalve3ME-rsdGwp_1noCfM5lGG1Y7eVIIDTSRlA2VpAd9EwyJxAjMOfo_iro64c7Rl-SHzhEc1Lyqs04Gg

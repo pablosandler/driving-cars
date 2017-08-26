@@ -39,7 +39,7 @@ public class CarDo {
     private EngineType engineType;
 
     @ManyToOne(optional=false)
-    @JoinColumn(name="manufacturer_ID", nullable=false, updatable=false)
+    @JoinColumn(name="manufacturer_id", nullable=false, updatable=false)
     private ManufacturerDo manufacturer;
 
     private boolean selected;

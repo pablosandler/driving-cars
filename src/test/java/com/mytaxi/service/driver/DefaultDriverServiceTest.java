@@ -9,15 +9,21 @@ import com.mytaxi.domainvalue.OnlineStatus;
 import com.mytaxi.exception.CarAlreadyInUseException;
 import com.mytaxi.exception.EntityNotFoundException;
 import com.mytaxi.exception.IncorrectStatusException;
+import com.mytaxi.filtering.criteria.CarEngineCriteria;
+import com.mytaxi.filtering.criteria.Criteria;
 import com.mytaxi.service.car.CarService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -151,4 +157,22 @@ public class DefaultDriverServiceTest {
         }
     }
 
+    @Test
+    public void whenFindingByCriteriaApplyItToAllDrivers() {
+        List<DriverDO> drivers = new ArrayList<>();
+
+        when(driverRepository.findAll()).thenReturn(drivers);
+
+        DriverService driverService = new DefaultDriverService(driverRepository, carService);
+
+        Criteria engineCriteria = mock(CarEngineCriteria.class);
+
+        List<DriverDO> criteriaResult = new ArrayList<>();
+        when(engineCriteria.meetCriteria(drivers)).thenReturn(criteriaResult);
+
+        List<DriverDO> result = driverService.findByCriteria(engineCriteria);
+
+        assertEquals(criteriaResult, result);
+        verify(engineCriteria).meetCriteria(drivers);
+    }
 }

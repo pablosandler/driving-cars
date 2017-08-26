@@ -6,6 +6,7 @@ import com.mytaxi.exception.CarAlreadyInUseException;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
 import com.mytaxi.exception.IncorrectStatusException;
+import com.mytaxi.filtering.criteria.Criteria;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface DriverService
     DriverDO selectCar(long driverId, long carId) throws EntityNotFoundException, IncorrectStatusException, CarAlreadyInUseException;
 
     DriverDO deselectCar(long driverId) throws EntityNotFoundException;
+
+    List<DriverDO> findByCriteria(Criteria criteria);
 }

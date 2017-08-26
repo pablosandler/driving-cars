@@ -9,12 +9,14 @@ import com.mytaxi.exception.CarAlreadyInUseException;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
 import com.mytaxi.exception.IncorrectStatusException;
+import com.mytaxi.filtering.criteria.Criteria;
 import com.mytaxi.service.car.CarService;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -137,6 +139,12 @@ public class DefaultDriverService implements DriverService
         car.setSelected(true);
         carService.save(car);
 
+        Optional<CarDo> currentCar = Optional.ofNullable(driver.getCar());
+        currentCar.ifPresent(c -> {
+            c.setSelected(false);
+            carService.save(c);
+        });
+
         driver.setCar(car);
         driverRepository.save(driver);
 
@@ -156,6 +164,18 @@ public class DefaultDriverService implements DriverService
         driver.setCar(null);
         driverRepository.save(driver);
         return driver;
+    }
+
+    @Override
+    public List<DriverDO> findByCriteria(Criteria criteria) {
+        List<DriverDO> drivers = new ArrayList<>();
+        driverRepository.findAll().forEach(drivers::add);
+
+        if(null==criteria){
+            return drivers;
+        }
+
+        return criteria.meetCriteria(drivers);
     }
 
 

@@ -29,7 +29,13 @@ public class ManufacturerDo {
     public ManufacturerDo(String name) {
         this.id=null;
         this.name = name;
-        dateCreated = ZonedDateTime.now();
+        this.dateCreated = ZonedDateTime.now();
+    }
+
+    public ManufacturerDo(long id, String name) {
+        this.id = id;
+        this.name = name;
+        this.dateCreated = ZonedDateTime.now();
     }
 
     private ManufacturerDo(){}

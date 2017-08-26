@@ -41,6 +41,13 @@ values
  'aced0005737200226f72672e737072696e676672616d65776f726b2e646174612e67656f2e506f696e7431b9e90ef11a4006020002440001784400017978704023000000000000404bfa1cac083127', now(), now(), false, 'ONLINE',
 'driver08pw', 'driver08');
 
--- populate
+-- manufacturers
 insert into manufacturer(id, date_created, name) values (1, now(), 'BMW');
 insert into manufacturer(id, date_created, name) values (2, now(), 'Peugeot');
+
+-- cars
+insert into car(id, date_created, license_plate, seat_count, convertible, rating, engine_type, manufacturer_id, selected)
+values (1, now(), '123456', 2, false, 3, 'GAS', 1, false);
+
+insert into car(id, date_created, license_plate, seat_count, convertible, rating, engine_type, manufacturer_id, selected)
+values (2, now(), '654321', 4, false, 4, 'ELECTRIC', 2, false);

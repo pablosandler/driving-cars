@@ -154,7 +154,7 @@ public class CarControllerTest {
         when(carService.find()).thenReturn(carDos);
 
         MvcResult result = this.mockMvc.perform(get("/v1/cars")
-                .accept(contentType).contentType(contentType))//check where contentType is required
+                .accept(contentType).contentType(contentType))
                 .andExpect(status().isOk()).andReturn();
 
         String content = result.getResponse().getContentAsString();
